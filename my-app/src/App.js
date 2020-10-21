@@ -1,5 +1,6 @@
 import React from 'react';
 import Foguete from "./components/Foguete"
+import RocketCard from "./components/RocketCard"
 import logo from './logo.svg';
 import './App.css';
 
@@ -34,7 +35,7 @@ class App extends React.Component {
     const elements = []
 		var i
 		for (i = 0; i < 11; i++) {
-  			elements.push(<Foguete id = {i} rocketInfo = {this.state.rocketData} />);
+  			elements.push(<RocketCard id = {i} rocketInfo = {this.state.rocketData} />);
 			}
     return(
       <div>
