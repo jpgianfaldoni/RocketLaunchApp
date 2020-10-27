@@ -9,8 +9,14 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = theme => ({
-  root: {
+  cardRoot: {
     maxWidth: 445,
+  },
+  textRoot: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    }
   }
 });
 
@@ -37,7 +43,7 @@ class RocketCard extends React.Component {
         const id = this.props.id
         return (
           this.state.loading ? <h1>Loading</h1> :
-          <Card className={classes.root}>
+          <Card className={classes.cardRoot}>
             <CardActionArea>
               <CardMedia
                 component="img"

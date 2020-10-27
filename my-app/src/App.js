@@ -5,17 +5,30 @@ import './App.css';
 import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 
 
 const useStyles = theme => ({
   root: {
     flexGrow: 1,
   },
+  buttonRoot: {
+    '& > *': {
+      margin: theme.spacing(1),
+    }
+  },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  textRoot: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    }
+  }
 });
 
 
@@ -26,16 +39,22 @@ class App extends React.Component {
       this.state = {
         loading: true,
         page : 0,
-        rocketData : {}
+        rocketData : {},
+        rocketName : "",
+        topText: ""
       }
       this.nextPageButton = this.nextPageButton.bind(this)
       this.previousPageButton = this.previousPageButton.bind(this)
+      this.handleSubmitRocketName = this.handleSubmitRocketName.bind(this)
+      this.handleChange = this.handleChange.bind(this)
+      
+      
     }
 
 
       componentDidMount() {
         this.setState({loading:true})
-        fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page)
+        fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName)
           .then(response => response.json())
           .then(data => {
             this.setState({
@@ -45,9 +64,10 @@ class App extends React.Component {
           })
         }
 
+
         nextPageButton(event){
           event.preventDefault()
-          fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page + 1))
+          fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page + 1) + "&rocketName=" + this.state.rocketName)
             .then(response => response.json())
             .then(data => {
               this.setState({
@@ -61,7 +81,7 @@ class App extends React.Component {
 
         previousPageButton(event){
           event.preventDefault()
-          fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page -1))
+          fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page -1) + "&rocketName=" + this.state.rocketName)
             .then(response => response.json())
             .then(data => {
               this.setState({
@@ -71,6 +91,28 @@ class App extends React.Component {
               })
           })
           console.log(this.state.page)
+        }
+
+        handleSubmitRocketName(event){
+          event.preventDefault()
+          fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page  + "&rocketName=" + this.state.rocketName)
+            .then(response => response.json())
+            .then(data => {
+              this.setState({
+                loading: false,
+                rocketData : data,
+                rocketName : this.state.topText
+              })
+            })
+        }
+      
+
+        handleChange(event, state){
+          const {value} = event.target
+          this.setState({
+            [state]: value,
+          })
+          console.log(this.state.topText)
         }
       
 
@@ -85,7 +127,8 @@ class App extends React.Component {
       <div>
 				{
       this.state.loading ? <h1>Loading</h1> :
-      <div className={classes.root}>
+      
+      <div className={classes.buttonRoot}>
       {
         this.state.page > 0 ?
         <Button variant="contained" color="primary" onClick = {(e)=> this.previousPageButton(e)}>
@@ -95,6 +138,9 @@ class App extends React.Component {
       <Button variant="contained" color="primary" onClick = {(e)=> this.nextPageButton(e)}>
         Next
       </Button>
+      <form className={classes.root} noValidate autoComplete="off" onSubmit = {(e)=> this.handleSubmitRocketName(e)}>
+        <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value = {this.state.topText} onChange={(e) => this.handleChange(e, "topText")}/>
+      </form>
       <Grid container spacing={2}>
         {elements}
       </Grid>
