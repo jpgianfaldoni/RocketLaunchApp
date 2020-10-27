@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = theme => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 445,
   }
 });
 
@@ -24,14 +24,9 @@ class RocketCard extends React.Component {
     }
     componentDidMount() {
       const id = this.props.id;
-      fetch("https://launchlibrary.net/1.4/launch/" + this.props.rocketInfo.launches[id].id)
-        .then(response => response.json())
-        .then(data => {
           this.setState({
             loading: false,
-            rocketIdData : data,
           })
-        })
 }
 
 
@@ -47,25 +42,24 @@ class RocketCard extends React.Component {
               <CardMedia
                 component="img"
                 alt="Contemplative Reptile"
-                height="140"
-                image={this.state.rocketIdData.launches[0].rocket.imageURL}
+                height="400"
+                image={this.props.rocketInfo.imageurl}
                 title="Contemplative Reptile"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  {this.props.rocketInfo.launches[id].name}
+                  {this.props.rocketInfo.name}
                 </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                  across all continents except Antarctica
-                </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {this.props.rocketInfo.missionDescription}
+                  </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary"  target="_blank" href = "http://www.google.com/">
                 Share
               </Button>
-              <Button size="small" color="primary">
+              <Button size="small" color="primary" target="_blank" href = "http://www.google.com/">
                 Learn More
               </Button>
             </CardActions>
