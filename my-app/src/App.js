@@ -6,6 +6,11 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 
@@ -27,7 +32,14 @@ const useStyles = theme => ({
     '& > *': {
       margin: theme.spacing(1),
       width: '25ch',
-    }
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
   }
 });
 
@@ -41,7 +53,9 @@ class App extends React.Component {
         page : 0,
         rocketData : {},
         rocketName : "",
-        topText: ""
+        missionName : "",
+        rocketStatus: "",
+        agencies : ""
       }
       this.nextPageButton = this.nextPageButton.bind(this)
       this.previousPageButton = this.previousPageButton.bind(this)
@@ -101,8 +115,9 @@ class App extends React.Component {
               this.setState({
                 loading: false,
                 rocketData : data,
-                rocketName : this.state.topText
               })
+              console.log("SUBMIT")
+              console.log(this.state.rocketName)
             })
         }
       
@@ -112,7 +127,7 @@ class App extends React.Component {
           this.setState({
             [state]: value,
           })
-          console.log(this.state.topText)
+          console.log(this.state.rocketStatus)
         }
       
 
@@ -139,7 +154,26 @@ class App extends React.Component {
         Next
       </Button>
       <form className={classes.root} noValidate autoComplete="off" onSubmit = {(e)=> this.handleSubmitRocketName(e)}>
-        <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value = {this.state.topText} onChange={(e) => this.handleChange(e, "topText")}/>
+        <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value = {this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")}/>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="demo-simple-select-autowidth-label">Status</InputLabel>
+          <Select
+            labelId="demo-simple-select-autowidth-label"
+            id="demo-simple-select-autowidth"
+            value={this.state.rocketStatus}
+            onChange={(e) => this.handleChange(e, "rocketStatus")}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={"Success"}>Success</MenuItem>
+            <MenuItem value={"Failure"}>Failure</MenuItem>
+
+          </Select>
+      </FormControl>
+        <Button variant="contained" color="primary" type = "Submit">
+          Submit
+        </Button>
       </form>
       <Grid container spacing={2}>
         {elements}
