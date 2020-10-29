@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from "react-router";
-
+import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta } from 'react-countdown';
 
 
 class Rocket extends React.Component {
@@ -30,9 +30,21 @@ class Rocket extends React.Component {
 
     render(){
         console.log(this.state.rocketData)
+        var date = new Date(this.state.rocketData.launchTime); 
+        var elapsed = date.getTime();
+        var delta = calcTimeDelta(date)
+        console.log(date)
+        console.log(elapsed)
+        console.log(delta)
 		return(
             <div>
                 <h1>{this.state.rocketData.name}</h1>
+                <h1>{date.toLocaleDateString()}</h1>
+                <h1>{this.state.rocketData.status}</h1>
+                <h1>{this.state.rocketData.agencyName}</h1>
+                <h1>{this.state.rocketData.missionType}</h1>
+                <img src={this.state.rocketData.imageurl}  width="500" height="600"></img>
+                <h1><Countdown date={date} /></h1>
             </div>
 		)
 
