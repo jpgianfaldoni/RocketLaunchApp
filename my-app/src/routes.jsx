@@ -9,10 +9,12 @@ import {
     Redirect
   } from "react-router-dom";
 import MainPage from "./components/MainPage"
+import Rocket from "./components/Rocket"
+
 
 export default props => (
     <Router>
-        <Route path="/teste" component={MainPage} />
-        <Redirect from ='*' to = "/teste" />
+        <Route exact path="/" component={MainPage} />
+        <Route exact path="/Rocket/*" component={Rocket} />
     </Router>
 )
