@@ -68,7 +68,8 @@ class App extends React.Component {
 
       componentDidMount() {
         this.setState({loading:true})
-        fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName)
+        fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName + "&rocketStatus=" + 
+        this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies ) 
           .then(response => response.json())
           .then(data => {
             this.setState({
@@ -81,7 +82,8 @@ class App extends React.Component {
 
         nextPageButton(event){
           event.preventDefault()
-          fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page + 1) + "&rocketName=" + this.state.rocketName)
+          fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page + 1) + "&rocketName=" + this.state.rocketName + 
+          "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
             .then(response => response.json())
             .then(data => {
               this.setState({
@@ -95,7 +97,8 @@ class App extends React.Component {
 
         previousPageButton(event){
           event.preventDefault()
-          fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page -1) + "&rocketName=" + this.state.rocketName)
+          fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page -1) + "&rocketName=" + this.state.rocketName +
+           "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
             .then(response => response.json())
             .then(data => {
               this.setState({
@@ -109,7 +112,8 @@ class App extends React.Component {
 
         handleSubmitRocketName(event){
           event.preventDefault()
-          fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page  + "&rocketName=" + this.state.rocketName)
+          fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page  + "&rocketName=" + this.state.rocketName + 
+          "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
             .then(response => response.json())
             .then(data => {
               this.setState({
@@ -118,6 +122,7 @@ class App extends React.Component {
               })
               console.log("SUBMIT")
               console.log(this.state.rocketName)
+              console.log(this.state.rocketStatus)
             })
         }
       
@@ -155,6 +160,8 @@ class App extends React.Component {
       </Button>
       <form className={classes.root} noValidate autoComplete="off" onSubmit = {(e)=> this.handleSubmitRocketName(e)}>
         <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value = {this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")}/>
+        <TextField id="outlined-basic" label="Mission Name" variant="outlined" value = {this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")}/>
+        <TextField id="outlined-basic" label="Agency" variant="outlined" value = {this.state.agencies} onChange={(e) => this.handleChange(e, "agencies")}/>
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel id="demo-simple-select-autowidth-label">Status</InputLabel>
           <Select
