@@ -7,8 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { useHistory } from 'react-router-dom'
-
+import {FacebookShareButton, RedditShareButton, TwitterShareButton, WhatsappShareButton, FacebookIcon, RedditIcon, TwitterIcon, WhatsappIcon} from 'react-share';
 
 const useStyles = theme => ({
   cardRoot: {
@@ -56,6 +55,7 @@ class RocketCard extends React.Component {
                 height="400"
                 image={this.props.rocketInfo.imageurl}
                 title="Contemplative Reptile"
+                onClick = {(event) => window.location.href='/Rocket/' + this.props.rocketInfo.id}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -70,6 +70,27 @@ class RocketCard extends React.Component {
               <Button size="small" color="primary" onClick = {(event) => window.location.href='/Rocket/' + this.props.rocketInfo.id}>
                 Learn More
               </Button>
+              <FacebookShareButton 
+                quote={this.props.rocketInfo.missionDescription ? this.props.rocketInfo.missionDescription : this.props.rocketInfo.name} 
+                hashtag="#Rockets"
+                url = {window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                <FacebookIcon size={"2.5rem"} round = {true} borderRadius = {"9px"}/>
+              </FacebookShareButton>
+              <TwitterShareButton
+                title = {this.props.rocketInfo.name} 
+                url = {window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                <TwitterIcon size={"2.5rem"} round = {true} borderRadius = {"9px"}/>
+              </TwitterShareButton>
+              <RedditShareButton
+                title = {this.props.rocketInfo.name} 
+                url = {window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                <RedditIcon size={"2.5rem"} round = {true} borderRadius = {"9px"}/>
+              </RedditShareButton>
+              <WhatsappShareButton
+                title = {this.props.rocketInfo.name} 
+                url = {window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                <WhatsappIcon size={"2.5rem"} round = {true} borderRadius = {"9px"}/>
+              </WhatsappShareButton>
             </CardActions>
           </Card>
         );
