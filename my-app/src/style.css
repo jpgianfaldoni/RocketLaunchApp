@@ -1,0 +1,15 @@
+.rockettest{
+    display: block;
+    width: 500px;
+    margin-left: 35%;
+    margin-top: 1%;
+
+}
+
+
+.rockettest2{
+    display: inline-block;
+    text-align: center;
+    width: 400px;
+}
+
