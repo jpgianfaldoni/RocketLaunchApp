@@ -2,6 +2,7 @@ import React from 'react';
 import RocketCard from "./RocketCard"
 
 
+
 import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -10,8 +11,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-
-
+const key = require("../teste/teste")
+console.log(key)
 
 
 

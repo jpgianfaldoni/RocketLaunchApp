@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta } from 'react-countdown';
 import '../style.css';
 
-
+import RocketMap from "./Map"
 
 
 class Rocket extends React.Component {
@@ -45,6 +45,7 @@ class Rocket extends React.Component {
                   <h2>{this.state.rocketData.agencyName}</h2>
                   <h2>{this.state.rocketData.missionType}</h2>
                   <Countdown date={date} />
+                  <RocketMap/>
                 </div>
             </div>
 		)
