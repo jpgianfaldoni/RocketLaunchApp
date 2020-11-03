@@ -2,6 +2,8 @@ import React from 'react'
 import { withRouter } from "react-router";
 import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta } from 'react-countdown';
 import '../style.css';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 import RocketMap from "./Map"
 
@@ -14,13 +16,13 @@ class Rocket extends React.Component {
             rocketID : "",
             rocketData : {}
         }
+    this.mapUrlParser = this.mapUrlParser.bind(this)
 
 
     }
     
     componentDidMount() {
         const id = this.props.match.params[0]
-        console.log(id)
         fetch("https://space-launch-db.herokuapp.com/id?id=" + id) 
           .then(response => response.json())
           .then(data => {
@@ -30,22 +32,36 @@ class Rocket extends React.Component {
             })
           })
         }
-    
+    mapUrlParser(mapUrl){
+      // http://maps.google.com/maps?q=28.627+N,+80.621+W
+      if(!mapUrl.includes("place")){
+        var split1 = mapUrl.split("=");
+        var coords = split1[1].split(",")
+        console.log(coords)
+        var lat = parseFloat(coords[0].replace(/[+|N|S]/gi, ""))
+        var long = parseFloat(coords[1].replace(/[+|W|E]/gi, ""))
+        coords[0].includes("S") ? lat = -lat : lat = lat
+        coords[1].includes("W") ? long = -long : long = long
+        return {lat: lat, long: long};
+      }
+      return false;
+    }
 
     render(){
-        console.log(this.state.rocketData)
         var date = new Date(this.state.rocketData.launchTime); 
+        console.log(this.state.rocketData)
 		return(
+          this.state.loading ? <CircularProgress /> :
             <div className = "rockettest">
                 <img src={this.state.rocketData.imageurl}  width="400" height="500"></img>
                 <div className = "rockettest2">
-                  <h2>{this.state.rocketData.name}</h2>
-                  <h2>{date.toLocaleDateString()}</h2>
-                  <h2>{this.state.rocketData.status}</h2>
-                  <h2>{this.state.rocketData.agencyName}</h2>
-                  <h2>{this.state.rocketData.missionType}</h2>
-                  <Countdown date={date} />
-                  <RocketMap/>
+                  <h2>Name: {this.state.rocketData.name}</h2>
+                  <h2>Launch Date: {date.toLocaleDateString()}</h2>
+                  <h2>Launch Status: {this.state.rocketData.status}</h2>
+                  <h2>Agency: {this.state.rocketData.agencyName}</h2>
+                  {this.state.rocketData.missionType ? <h2>Mission Type: {this.state.rocketData.missionType}</h2> : <h2></h2>}
+                  <h1>Countdown:</h1><Countdown date={date} />
+                  {this.mapUrlParser(this.state.rocketData.mapurl)?<RocketMap mapUrl = {this.mapUrlParser(this.state.rocketData.mapurl)}/> :<h1>teste</h1>}
                 </div>
             </div>
 		)

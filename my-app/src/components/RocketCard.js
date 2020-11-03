@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import {FacebookShareButton, RedditShareButton, TwitterShareButton, WhatsappShareButton, FacebookIcon, RedditIcon, TwitterIcon, WhatsappIcon} from 'react-share';
+import {FacebookShareButton, RedditShareButton, TwitterShareButton, WhatsappShareButton, EmailShareButton, FacebookIcon, RedditIcon, EmailIcon, TwitterIcon, WhatsappIcon} from 'react-share';
 
 const useStyles = theme => ({
   cardRoot: {
@@ -71,7 +71,7 @@ class RocketCard extends React.Component {
                 Learn More
               </Button>
               <FacebookShareButton 
-                quote={this.props.rocketInfo.missionDescription ? this.props.rocketInfo.missionDescription : this.props.rocketInfo.name} 
+                quote={this.props.rocketInfo.missionDescription ? this.props.rocketInfo.missionDescription : this.props.rocketInfo.missionDescription} 
                 hashtag="#Rockets"
                 url = {window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
                 <FacebookIcon size={"2.5rem"} round = {true} borderRadius = {"9px"}/>
@@ -91,6 +91,12 @@ class RocketCard extends React.Component {
                 url = {window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
                 <WhatsappIcon size={"2.5rem"} round = {true} borderRadius = {"9px"}/>
               </WhatsappShareButton>
+              <EmailShareButton
+                subject = {this.props.rocketInfo.name}
+ 
+                url = {window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                <EmailIcon size={"2.5rem"} round = {true} borderRadius = {"9px"}/>
+              </EmailShareButton>
             </CardActions>
           </Card>
         );

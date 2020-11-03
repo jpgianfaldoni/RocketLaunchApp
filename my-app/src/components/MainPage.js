@@ -11,8 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const key = require("../teste/teste")
-console.log(key)
+
 
 
 
@@ -95,7 +94,6 @@ class MainPage extends React.Component {
           rocketData: data,
           page: this.state.page + 1
         })
-        console.log(this.state.nameList)
       })
   }
 
@@ -161,7 +159,6 @@ class MainPage extends React.Component {
     const { classes } = this.props;
     const rocketElements = [];
     const checkboxLines = [];
-    console.log(this.state.agencies)
     for (let i = 0; i < this.state.rocketData.length; i++) {
       rocketElements.push(<Grid item xs={'auto'}><RocketCard id={i} rocketInfo={this.state.rocketData[i]} /></Grid>);
     }
