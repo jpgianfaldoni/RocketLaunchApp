@@ -160,16 +160,18 @@ class MainPage extends React.Component {
     const rocketElements = [];
     const checkboxLines = [];
     for (let i = 0; i < this.state.rocketData.length; i++) {
-      rocketElements.push(<Grid item xs={'4'}><RocketCard id={i} rocketInfo={this.state.rocketData[i]} /></Grid>);
+      rocketElements.push(<Grid item xs={'auto'}><RocketCard id={i} rocketInfo={this.state.rocketData[i]} /></Grid>);
     }
 
     if (!this.state.loading){
       for (let i = 0; i < this.state.nameList.agencies.length; i++) {
-        checkboxLines.push(<FormControlLabel 
-            control={
-              <Checkbox value={this.state.nameList.agencies[i]} onChange={this.checkboxHandler}/>} 
-          label={this.state.nameList.agencies[i]}
-        />);
+        checkboxLines.push(
+        <div class="singleCheckbox">
+          <FormControlLabel 
+            control={<Checkbox value={this.state.nameList.agencies[i]} onChange={this.checkboxHandler}/>} 
+            label={this.state.nameList.agencies[i]}/>
+        </div>
+          );
       }
     }
 
@@ -202,7 +204,8 @@ class MainPage extends React.Component {
                   </div>
                 </div>
                   <div className = "checkboxDiv">
-                      <h3>{checkboxLines}</h3>
+                    <h2>Filter by agency:</h2>
+                    {checkboxLines}
                   </div>
            </div>   
         }

@@ -37,6 +37,11 @@
 
 .checkboxDiv{
     display: flex;
-    max-width: 15%;
-    margin-top: 6%;
+    flex-flow: column nowrap;
+    margin-top: 5rem;
+}
+
+.singleCheckbox{
+    width: 19rem;
+    margin: 0 0.5rem;
 }
