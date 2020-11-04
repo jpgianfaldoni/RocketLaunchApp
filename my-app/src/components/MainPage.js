@@ -160,7 +160,7 @@ class MainPage extends React.Component {
     const rocketElements = [];
     const checkboxLines = [];
     for (let i = 0; i < this.state.rocketData.length; i++) {
-      rocketElements.push(<Grid item xs={'auto'}><RocketCard id={i} rocketInfo={this.state.rocketData[i]} /></Grid>);
+      rocketElements.push(<Grid item xs={'4'}><RocketCard id={i} rocketInfo={this.state.rocketData[i]} /></Grid>);
     }
 
     if (!this.state.loading){
@@ -177,30 +177,34 @@ class MainPage extends React.Component {
       <div>
         {
         this.state.loading ? <CircularProgress /> :
+          <div className = "mainPageDiv">
+            <div className = "rocketCardsDiv">
+              <div className={classes.buttonRoot}>
+                {
 
-            <div className={classes.buttonRoot}>
-              {
-                this.state.page > 0 ?
-                  <Button variant="contained" color="primary" onClick={(e) => this.previousPageButton(e)}>
-                    Previous
-        </Button> : <div></div>
-              }
-              <Button variant="contained" color="primary" onClick={(e) => this.nextPageButton(e)}>
-                Next
-        </Button>
-              <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
-                <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
-                <Button variant="contained" color="primary" type="Submit">
-                  Submit
-        </Button>
-              </form>
-              <Grid container spacing={2}>
-                {rocketElements}
-              </Grid>
-        <div>
-            <h3>{checkboxLines}</h3>
-        </div>
-            </div>
+                  this.state.page > 0 ?
+                    <Button variant="contained" color="primary" onClick={(e) => this.previousPageButton(e)}>
+                      Previous
+                    </Button> : <div></div>
+                          }
+                          <Button variant="contained" color="primary" onClick={(e) => this.nextPageButton(e)}>
+                            Next
+                    </Button>
+                          <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
+                            <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
+                            <Button variant="contained" color="primary" type="Submit">
+                              Submit
+                    </Button>
+                          </form>
+                    <Grid container spacing={2}>
+                      {rocketElements}
+                    </Grid>
+                  </div>
+                </div>
+                  <div className = "checkboxDiv">
+                      <h3>{checkboxLines}</h3>
+                  </div>
+           </div>   
         }
       </div>
     )
