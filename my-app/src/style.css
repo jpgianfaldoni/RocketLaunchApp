@@ -13,3 +13,14 @@
     width: 400px;
 }
 
+.cardDescription{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+.learnMoreButton{
+    padding-left: 2rem;
+}
