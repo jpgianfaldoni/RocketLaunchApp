@@ -79,7 +79,7 @@ class MainPage extends React.Component {
         })
       })
 
-      fetch("https://space-launch-db.herokuapp.com/listAgencyName").then(response => response.json()).then(data => {this.setState({ nameList: data , loading: false})});
+      fetch("https://space-launch-db.herokuapp.com/listAgencyName").then(response => response.json()).then(data => {this.setState({ nameList: data, loading: false})});
   }
 
 
@@ -164,12 +164,13 @@ class MainPage extends React.Component {
     }
 
     if (!this.state.loading){
-      for (let i = 0; i < this.state.nameList.agencies.length; i++) {
+      var agencyList = this.state.nameList.agencies.sort();
+      for (let i = 0; i < agencyList.length; i++) {
         checkboxLines.push(
         <div class="singleCheckbox">
           <FormControlLabel 
-            control={<Checkbox value={this.state.nameList.agencies[i]} onChange={this.checkboxHandler}/>} 
-            label={this.state.nameList.agencies[i]}/>
+            control={<Checkbox value={agencyList[i]} onChange={this.checkboxHandler}/>} 
+            label={agencyList[i]}/>
         </div>
           );
       }
