@@ -54,7 +54,7 @@ const useStyles = theme => ({
 
 
 
-class MainPage extends React.Component {
+class UpcomingLaunches extends React.Component {
 
   constructor() {
     super()
@@ -81,7 +81,7 @@ class MainPage extends React.Component {
 
   componentDidMount() {
     this.setState({ loading: true })
-    fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName + "&rocketStatus=" +
+    fetch("https://space-launch-db.herokuapp.com/upcoming?page=" + this.state.page + "&rocketName=" + this.state.rocketName + "&rocketStatus=" +
       this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
       .then(response => response.json())
       .then(data => {
@@ -96,7 +96,7 @@ class MainPage extends React.Component {
 
   nextPageButton(event) {
     event.preventDefault()
-    fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page + 1) + "&rocketName=" + this.state.rocketName +
+    fetch("https://space-launch-db.herokuapp.com/upcoming?page=" + (this.state.page + 1) + "&rocketName=" + this.state.rocketName +
       "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
       .then(response => response.json())
       .then(data => {
@@ -110,7 +110,7 @@ class MainPage extends React.Component {
 
   previousPageButton(event) {
     event.preventDefault()
-    fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page - 1) + "&rocketName=" + this.state.rocketName +
+    fetch("https://space-launch-db.herokuapp.com/upcoming?page=" + (this.state.page - 1) + "&rocketName=" + this.state.rocketName +
       "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
       .then(response => response.json())
       .then(data => {
@@ -124,7 +124,7 @@ class MainPage extends React.Component {
 
   handleSubmitRocketName(event) {
     event.preventDefault()
-    fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+    fetch("https://space-launch-db.herokuapp.com/upcoming?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
       "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
       .then(response => response.json())
       .then(data => {
@@ -237,7 +237,7 @@ class MainPage extends React.Component {
                   </div>
                 </div>
                   <div className = "checkboxDiv">
-                    <h2>Filter by agency:</h2>
+                    <h2>upcoming by agency:</h2>
                     {checkboxLines}
                   </div>
            </div>   
@@ -248,4 +248,4 @@ class MainPage extends React.Component {
   }
 }
 
-export default withStyles(useStyles)(MainPage);
+export default withStyles(useStyles)(UpcomingLaunches);
