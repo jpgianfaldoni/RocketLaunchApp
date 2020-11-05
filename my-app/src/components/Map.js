@@ -52,7 +52,7 @@ class RocketMap extends Component {
           {...this.state.viewport}
           onViewportChange={(viewport) => this.setState({viewport})}
           mapboxApiAccessToken = {key}>
-          <Marker latitude={lat} longitude={long}>X</Marker>
+          <Marker latitude={lat} longitude={long}><img src = "https://i.ibb.co/3Mp8mqp/pin.png" height = "25" width = "17"></img></Marker>
         </ReactMapGL>
       }
 

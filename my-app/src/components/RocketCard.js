@@ -57,6 +57,9 @@ class RocketCard extends React.Component {
               <Typography gutterBottom variant="h5" component="h2">
                 {this.props.rocketInfo.name}
               </Typography>
+              <Typography gutterBottom component="h6">
+                Set to Launch: {new Date(this.props.rocketInfo.launchTime).toLocaleDateString()}
+              </Typography>
               <Typography class="cardDescription" variant="body2" color="textSecondary" component="p">
                 {this.props.rocketInfo.missionDescription}
               </Typography>
@@ -91,7 +94,7 @@ class RocketCard extends React.Component {
               <EmailIcon size={"2.5rem"} round={true} borderRadius={"9px"} />
             </EmailShareButton>
             <div class="learnMoreButton">
-              <Button variant="outlined" size="small" color="primary" onClick={(event) => window.location.href = '/Rocket/' + this.props.rocketInfo.id}>
+              <Button variant="outlined" size="small" onClick={(event) => window.location.href = '/Rocket/' + this.props.rocketInfo.id}>
                 Learn More
                 </Button>
             </div>

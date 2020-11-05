@@ -5,11 +5,18 @@ import RocketCard from "./RocketCard"
 
 import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 
 
@@ -17,7 +24,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 0,
   },
   buttonRoot: {
     '& > *': {
@@ -45,6 +52,8 @@ const useStyles = theme => ({
 });
 
 
+
+
 class MainPage extends React.Component {
 
   constructor() {
@@ -57,13 +66,15 @@ class MainPage extends React.Component {
       missionName: "",
       rocketStatus: "",
       agencies: "",
-      nameList: {}
+      nameList: {},
+      darkState : true
     }
     this.nextPageButton = this.nextPageButton.bind(this)
     this.previousPageButton = this.previousPageButton.bind(this)
     this.handleSubmitRocketName = this.handleSubmitRocketName.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.checkboxHandler = this.checkboxHandler.bind(this)
+    this.handleThemeChange = this.handleThemeChange.bind(this)
     
   }
 
@@ -153,12 +164,25 @@ class MainPage extends React.Component {
     
   }
 
+  handleThemeChange(){
+    this.setState({      
+      darkState : !this.state.darkState
+    })
+  }
+
 
 
   render() {
     const { classes } = this.props;
     const rocketElements = [];
     const checkboxLines = [];
+    const palletType = this.state.darkState ? "dark" : "light";
+
+    const darkTheme = createMuiTheme({
+      palette: {
+        type: palletType,
+      },
+    });
     for (let i = 0; i < this.state.rocketData.length; i++) {
       rocketElements.push(<Grid item xs={'auto'}><RocketCard id={i} rocketInfo={this.state.rocketData[i]} /></Grid>);
     }
@@ -180,25 +204,33 @@ class MainPage extends React.Component {
       <div>
         {
         this.state.loading ? <CircularProgress /> :
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline />
           <div className = "mainPageDiv">
             <div className = "rocketCardsDiv">
               <div className={classes.buttonRoot}>
-                {
-
-                  this.state.page > 0 ?
-                    <Button variant="contained" color="primary" onClick={(e) => this.previousPageButton(e)}>
-                      Previous
-                    </Button> : <div></div>
-                          }
-                          <Button variant="contained" color="primary" onClick={(e) => this.nextPageButton(e)}>
-                            Next
-                    </Button>
-                          <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
-                            <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
-                            <Button variant="contained" color="primary" type="Submit">
-                              Submit
-                    </Button>
-                          </form>
+                    <div className = "pageHeader">
+                      <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
+                        <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
+                        <TextField id="outlined-basic" label="Mission Name" variant="outlined" value={this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")} />
+                        <IconButton aria-label="search" type="Submit">
+                          <SearchIcon style={{ fontSize: 30 }} />
+                        </IconButton>
+                      </form>
+                      {
+                        this.state.page > 0 ?
+                        <IconButton aria-label="before" onClick={(e) => this.previousPageButton(e)}>
+                          <NavigateBeforeIcon style={{ fontSize: 30 }}/>
+                        </IconButton>
+                        : <div></div>
+                      }
+                      <IconButton aria-label="next" onClick={(e) => this.nextPageButton(e)}>
+                          <NavigateNextIcon style={{ fontSize: 30 }}/>
+                      </IconButton>
+                      <IconButton aria-label="brightness" onClick = {this.handleThemeChange}>
+                          <Brightness4Icon style={{ fontSize: 30 }}/>
+                      </IconButton>
+                    </div>
                     <Grid container spacing={2}>
                       {rocketElements}
                     </Grid>
@@ -209,6 +241,7 @@ class MainPage extends React.Component {
                     {checkboxLines}
                   </div>
            </div>   
+           </ThemeProvider>
         }
       </div>
     )
