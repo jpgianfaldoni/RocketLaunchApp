@@ -240,7 +240,7 @@ class UpcomingLaunches extends React.Component {
                   </div>
                 </div>
                 <div className="checkboxDiv">
-                  <h2>upcoming by agency:</h2>
+                  <h2>Filter by agency:</h2>
                   {checkboxLines}
                 </div>
               </div>

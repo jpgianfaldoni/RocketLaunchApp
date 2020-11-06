@@ -1,6 +1,6 @@
 import React from 'react';
 import RocketCard from "./RocketCard"
-
+import '../style.css';
 
 
 import { withStyles } from "@material-ui/core/styles";
@@ -17,7 +17,7 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Button from '@material-ui/core/Button';
-
+import Box from '@material-ui/core/Box';
 
 
 
@@ -51,8 +51,9 @@ const useStyles = theme => ({
       marginTop: theme.spacing(2),
     },
   },
-  upcomingLaunchesButton: {
-    marginLeft: "3rem",
+  form: {
+    display: 'flex',
+    paddingTop: 0
   }
 });
 
@@ -215,31 +216,35 @@ class MainPage extends React.Component {
           <div className = "mainPageDiv">
             <div className = "rocketCardsDiv">
               <div className={classes.buttonRoot}>
-                    <div className = "pageHeader">
-                      <form id="headerForm" className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
-                        <TextField label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
-                        <TextField label="Mission Name" variant="outlined" value={this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")} />
+                    <Box display="flex" flexDirection="row" p="0 1rem">
+                      <form className={classes.form} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
+                        <Box paddingLeft="1rem">
+                          <TextField label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
+                        </Box>
+                        <Box paddingLeft="1rem">
+                          <TextField label="Mission Name" variant="outlined" value={this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")} />
+                        </Box>
                         <IconButton aria-label="search" type="Submit">
-                          <SearchIcon style={{ fontSize: 30 }} />
+                          <SearchIcon style={{ fontSize: 40 }} />
                         </IconButton>
                       </form>
                       {
                         this.state.page > 0 ?
                         <IconButton aria-label="before" onClick={(e) => this.previousPageButton(e)}>
-                          <NavigateBeforeIcon style={{ fontSize: 30 }}/>
+                          <NavigateBeforeIcon style={{ fontSize: 40 }}/>
                         </IconButton>
                         : <div></div>
                       }
                       <IconButton aria-label="next" onClick={(e) => this.nextPageButton(e)}>
-                          <NavigateNextIcon style={{ fontSize: 30 }}/>
+                          <NavigateNextIcon style={{ fontSize: 40 }}/>
                       </IconButton>
                       <IconButton aria-label="brightness" onClick = {this.handleThemeChange}>
-                          <Brightness4Icon style={{ fontSize: 30 }}/>
+                          <Brightness4Icon style={{ fontSize: 40 }}/>
                       </IconButton>
                       <Button className="upcomingLaunchesButton" color="primary" variant="contained" size="small" onClick={(event) => window.location.href = "Upcoming"}>
                         Upcoming Launches
                       </Button>
-                    </div>
+                    </Box>
                     <Grid container spacing={2}>
                       {rocketElements}
                     </Grid>

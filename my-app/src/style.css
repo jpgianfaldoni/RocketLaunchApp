@@ -1,4 +1,4 @@
-.rockettest{
+/* .rockettest{
     display: block;
     width: 500px;
     margin-left: 35%;
@@ -10,7 +10,7 @@
     display: inline-block;
     text-align: center;
     width: 400px;
-}
+} */
 
 .cardDescription{
     overflow: hidden;
@@ -44,8 +44,4 @@
 .singleCheckbox{
     width: 19rem;
     margin-left: 2rem;
-}
-
-.pageHeader{
-    display : flex;
 }
