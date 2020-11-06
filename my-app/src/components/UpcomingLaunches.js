@@ -17,7 +17,8 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import HomeIcon from '@material-ui/icons/Home';
-
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 
 
 
@@ -48,7 +49,11 @@ const useStyles = theme => ({
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
-    },
+    }
+  },
+  form: {
+    display: 'flex',
+    paddingTop: 0
   }
 });
 
@@ -207,33 +212,38 @@ class UpcomingLaunches extends React.Component {
           this.state.loading ? <CircularProgress /> :
             <ThemeProvider theme={darkTheme}>
               <CssBaseline />
-              <div className="mainPageDiv">
+              <Box display="flex">
                 <div className="rocketCardsDiv">
                   <div className={classes.buttonRoot}>
-                    <div className="pageHeader">
+                  <Box display="flex" flexDirection="row nowrap" p="0 1rem">
+                    <form className={classes.form} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
                       <IconButton aria-label="home" onClick={(e) => window.location.href = "/"}>
-                        <HomeIcon style={{ fontSize: 30 }} />
+                        <HomeIcon style={{ fontSize: 40 }} />
                       </IconButton>
-                      <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
-                        <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
-                        <TextField id="outlined-basic" label="Mission Name" variant="outlined" value={this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")} />
-                        <IconButton aria-label="search" type="Submit">
-                          <SearchIcon style={{ fontSize: 30 }} />
-                        </IconButton>
-                      </form>
-                      {
-                        this.state.page > 0 ?
-                          <IconButton aria-label="before" onClick={(e) => this.previousPageButton(e)}>
-                            <NavigateBeforeIcon style={{ fontSize: 30 }} />
-                          </IconButton>
-                          : <div></div>}
-                      <IconButton aria-label="next" onClick={(e) => this.nextPageButton(e)}>
-                        <NavigateNextIcon style={{ fontSize: 30 }} />
+                      <Box paddingLeft="1rem">
+                        <TextField label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
+                      </Box>
+                      <Box paddingLeft="1rem">
+                        <TextField label="Mission Name" variant="outlined" value={this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")} />
+                      </Box>
+                      <IconButton aria-label="search" type="Submit">
+                        <SearchIcon style={{ fontSize: 40 }} />
                       </IconButton>
-                      <IconButton aria-label="brightness" onClick={this.handleThemeChange}>
-                        <Brightness4Icon style={{ fontSize: 30 }} />
+                    </form>
+                    {
+                      this.state.page > 0 ?
+                      <IconButton aria-label="before" onClick={(e) => this.previousPageButton(e)}>
+                        <NavigateBeforeIcon style={{ fontSize: 40 }}/>
                       </IconButton>
-                    </div>
+                      : <div></div>
+                    }
+                    <IconButton aria-label="next" onClick={(e) => this.nextPageButton(e)}>
+                        <NavigateNextIcon style={{ fontSize: 40 }}/>
+                    </IconButton>
+                    <IconButton aria-label="brightness" onClick = {this.handleThemeChange}>
+                        <Brightness4Icon style={{ fontSize: 40 }}/>
+                    </IconButton>
+                  </Box>
                     <Grid container spacing={2}>
                       {rocketElements}
                     </Grid>
@@ -243,7 +253,7 @@ class UpcomingLaunches extends React.Component {
                   <h2>Filter by agency:</h2>
                   {checkboxLines}
                 </div>
-              </div>
+              </Box>
             </ThemeProvider>
         }
       </div>
