@@ -200,6 +200,7 @@ class MainPage extends React.Component {
         checkboxLines.push(
         <div className="singleCheckbox">
           <FormControlLabel 
+            color = "primary"
             control={<Checkbox value={agencyList[i]} onChange={this.checkboxHandler}/>} 
             label={agencyList[i]}/>
         </div>

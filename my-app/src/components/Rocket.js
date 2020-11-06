@@ -12,6 +12,7 @@ import HomeIcon from '@material-ui/icons/Home';
 
 
 
+
 import RocketMap from "./Map"
 import { Typography } from '@material-ui/core';
 
@@ -46,7 +47,10 @@ class Rocket extends React.Component {
     // Examples
     // http://maps.google.com/maps?q=28.627+N,+80.621+W
     // https://www.google.ee/maps/search/57.435833,152.337778
-    if (mapUrl.includes("search")) {
+    if(!mapUrl){
+      return false
+    }
+    else if (mapUrl.includes("search")) {
       var split = mapUrl.split("/")
       var lastIndex = split.length - 1;
       var numbers = split[lastIndex].split(",")
@@ -76,14 +80,14 @@ class Rocket extends React.Component {
 
   clockRenderer({days, hours, minutes, seconds, completed}) {
     console.log({days, hours, minutes, seconds})
-    const div = <Box>
-      <Typography>This rocket will launch in:</Typography>
-      {days != 0 ? 
-      <Typography>{days} days, {hours} hours, {minutes} minutes and {seconds} seconds</Typography>
-      : <Typography>{hours} hours, {minutes} minutes and {seconds} seconds</Typography>
-      }
-    </Box>
-    return div
+    return(
+      <Box>
+        {days != 0 ? 
+        <Typography variant = "h4"> Launch in: {days} days, {hours} hours, {minutes} minutes and {seconds} seconds</Typography>
+        : <Typography variant = "h4">Launch in: {hours} hours, {minutes} minutes and {seconds} seconds</Typography>
+        }
+      </Box> 
+    )
   }
 
 
@@ -101,55 +105,47 @@ class Rocket extends React.Component {
     console.log(this.state.rocketData)
     console.log(this.state.rocketData.missionDescription);
     return (
+      <div>
       <ThemeProvider theme={darkTheme}>
       <CssBaseline/>
       {this.state.loading ? <CircularProgress /> :
-      <Box>
-        <Box display="flex" flexDirection="row">
-          <Box p = "1rem">
+      <Box id = "Black" display = "flex" flexDirection = "column" maxWidth = '100vw' maxHeight = '100vh' position = "absolute" paddingLeft = "2vw">
+        <Box id = "Red" display = "flex" flexDirection = "row">
             <IconButton aria-label="home" onClick={(e) => window.location.href = "/"}>
               <HomeIcon style={{ fontSize: 40 }}/>
             </IconButton>
             <IconButton aria-label="brightness" onClick = {this.handleThemeChange}>
               <Brightness4Icon style={{ fontSize: 40 }}/>
             </IconButton>
-          </Box>
-          <Box m="auto" fontSize="1rem">
             <h1>{this.state.rocketData.name}</h1>
-          </Box>
         </Box>
-        <Box display="flex" flexDirection="row">
-          <Box alignItems="baseline" p="2rem">
-            <img src={this.state.rocketData.imageurl} width="520" height="700"></img>
-          </Box>
-          <Box p="3rem" maxWidth="30%">
-            <h4>Mission led by: {this.state.rocketData.agencyName}</h4>
-            <h4>{isFuture ? "This mission will launch on " + date.toLocaleDateString() : "This mission has launched on " + date.toLocaleDateString()}</h4>
+        <Box id = "Brown" display = "flex" flexDirection = "row" >
+          <Box id = "Blue" display = "flex" flexDirection = "column" marginRight = "5vw">
+            <Box id = "Orange">
+              <img src={this.state.rocketData.imageurl} width="450" height="500"></img>
+            </Box>
+            <Box id = "Purple" display = "flex" flexDirection = "column" maxWidth = "450px">
+              <h4>Mission led by: {this.state.rocketData.agencyName}</h4>
+              <h4>{isFuture ? "This mission will launch on " + date.toLocaleDateString() : "This mission has launched on " + date.toLocaleDateString()}</h4>
 
-            {this.state.rocketData.missionDescription != null ? <p>{this.state.rocketData.missionDescription}</p> : <p>Sorry, this missions' description is unavailable...</p>}
+              {this.state.rocketData.missionDescription != null ? <p>{this.state.rocketData.missionDescription}</p> : <p>Sorry, this mission's description is unavailable...</p>}
 
-            {isFuture ? <Countdown date={date} renderer={this.clockRenderer}/>: <div></div>}
+    
+              <h4>{this.state.rocketData.padName ? "Launch Location: " + this.state.rocketData.padName : <div></div>}</h4>
+            </Box>
           </Box>
-          <Box>      
-            <h4>{this.state.rocketData.padName ? "Launch Location: " + this.state.rocketData.padName : <div></div>}</h4>
+          <Box id = "Green" maxHeight = '100%' maxHeight = '100%' >
             {this.mapUrlParser(this.state.rocketData.mapurl) ? <RocketMap mapUrl={this.mapUrlParser(this.state.rocketData.mapurl)} /> : <p>Sorry, no map was available for this launch...</p>}  
-          </Box>   
-          {/* <Box>
-              <h2>Name: {this.state.rocketData.name}</h2>
-              <h2>Launch Date: {date.toLocaleDateString()}</h2>
-              <h2>Launch Status: {this.state.rocketData.status}</h2>
-              <h2>Agency: {}</h2>
-              {this.state.rocketData.missionType ? <h2>Mission Type: {this.state.rocketData.missionType}</h2> : <h2></h2>}
-              <h1>Countdown:</h1><Countdown date={date} />
-              {this.mapUrlParser(this.state.rocketData.mapurl) ? <RocketMap mapUrl={this.mapUrlParser(this.state.rocketData.mapurl)} /> : <p>Sorry, no map was available for this launch...</p>}
-              <IconButton aria-label="brightness" onClick = {this.handleThemeChange}>
-                  <Brightness4Icon/>
-              </IconButton>
-            </Box> */}
           </Box>
         </Box>
+        <Box id = "Pink" textAlign = "center">
+          {isFuture ? <Countdown date={date} renderer={this.clockRenderer} />: <div></div>}
+        </Box>
+      </Box>      
       }
+    
       </ThemeProvider>
+      </div>
     )
   }
 }

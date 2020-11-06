@@ -11,8 +11,8 @@ class RocketMap extends Component {
     super(props)
     this.state = {
       viewport: {
-        width: 400,
-        height: 400,
+        width: 900,
+        height: 700,
         latitude: 0,
         longitude: 0,
         zoom: 8,
@@ -25,12 +25,13 @@ class RocketMap extends Component {
   componentDidMount(){
     this.setState({
       viewport:{
-      width: 400,
-      height: 400,
+      width: 1200,
+      height: 700,
       latitude: this.props.mapUrl.lat,
       longitude: this.props.mapUrl.long,
       zoom: 8,
       coordinates : ""
+
     },
     loading: false},
     );
