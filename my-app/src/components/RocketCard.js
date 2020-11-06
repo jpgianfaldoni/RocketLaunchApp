@@ -89,7 +89,6 @@ class RocketCard extends React.Component {
             </WhatsappShareButton>
             <EmailShareButton
               subject={this.props.rocketInfo.name}
-
               url={window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
               <EmailIcon size={"2.5rem"} round={true} borderRadius={"9px"} />
             </EmailShareButton>

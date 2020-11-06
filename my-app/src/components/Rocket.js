@@ -31,6 +31,7 @@ class Rocket extends React.Component {
       })
   }
   mapUrlParser(mapUrl) {
+    // Examples
     // http://maps.google.com/maps?q=28.627+N,+80.621+W
     // https://www.google.ee/maps/search/57.435833,152.337778
     if (mapUrl.includes("search")) {

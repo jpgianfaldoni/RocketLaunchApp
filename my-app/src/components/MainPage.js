@@ -16,6 +16,8 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Button from '@material-ui/core/Button';
+
 
 
 
@@ -48,6 +50,9 @@ const useStyles = theme => ({
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+  },
+  upcomingLaunchesButton: {
+    marginLeft: "3rem",
   }
 });
 
@@ -124,6 +129,7 @@ class MainPage extends React.Component {
 
   handleSubmitRocketName(event) {
     event.preventDefault()
+    this.setState({loading: true})
     fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
       "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
       .then(response => response.json())
@@ -210,9 +216,9 @@ class MainPage extends React.Component {
             <div className = "rocketCardsDiv">
               <div className={classes.buttonRoot}>
                     <div className = "pageHeader">
-                      <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
-                        <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
-                        <TextField id="outlined-basic" label="Mission Name" variant="outlined" value={this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")} />
+                      <form id="headerForm" className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
+                        <TextField label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
+                        <TextField label="Mission Name" variant="outlined" value={this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")} />
                         <IconButton aria-label="search" type="Submit">
                           <SearchIcon style={{ fontSize: 30 }} />
                         </IconButton>
@@ -230,6 +236,9 @@ class MainPage extends React.Component {
                       <IconButton aria-label="brightness" onClick = {this.handleThemeChange}>
                           <Brightness4Icon style={{ fontSize: 30 }}/>
                       </IconButton>
+                      <Button className="upcomingLaunchesButton" color="primary" variant="contained" size="small" onClick={(event) => window.location.href = "Upcoming"}>
+                        Upcoming Launches
+                      </Button>
                     </div>
                     <Grid container spacing={2}>
                       {rocketElements}

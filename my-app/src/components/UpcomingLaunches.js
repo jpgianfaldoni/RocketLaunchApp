@@ -16,6 +16,7 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
+import HomeIcon from '@material-ui/icons/Home';
 
 
 
@@ -67,7 +68,7 @@ class UpcomingLaunches extends React.Component {
       rocketStatus: "",
       agencies: "",
       nameList: {},
-      darkState : true
+      darkState: true
     }
     this.nextPageButton = this.nextPageButton.bind(this)
     this.previousPageButton = this.previousPageButton.bind(this)
@@ -75,7 +76,7 @@ class UpcomingLaunches extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.checkboxHandler = this.checkboxHandler.bind(this)
     this.handleThemeChange = this.handleThemeChange.bind(this)
-    
+
   }
 
 
@@ -90,7 +91,7 @@ class UpcomingLaunches extends React.Component {
         })
       })
 
-      fetch("https://space-launch-db.herokuapp.com/listAgencyName").then(response => response.json()).then(data => {this.setState({ nameList: data, loading: false})});
+    fetch("https://space-launch-db.herokuapp.com/listAgencyName").then(response => response.json()).then(data => { this.setState({ nameList: data, loading: false }) });
   }
 
 
@@ -147,26 +148,26 @@ class UpcomingLaunches extends React.Component {
     var selValue = event.target.value;
     var currState = this.state.agencies;
     var currStateList = currState.split(",");
-    if(currState.length == 0){
-      this.setState({agencies: selValue});
-    } else if(currStateList.includes(selValue)) {
+    if (currState.length == 0) {
+      this.setState({ agencies: selValue });
+    } else if (currStateList.includes(selValue)) {
       var index = currStateList.indexOf(selValue);
       currStateList.splice(index, 1);
       var newState = currStateList[0];
-      for (let i = 1; i<currStateList.length; i++){
+      for (let i = 1; i < currStateList.length; i++) {
         newState += "," + currStateList[i];
       }
-      if (!newState) {this.setState({agencies: ""});} else {this.setState({agencies: newState});}
+      if (!newState) { this.setState({ agencies: "" }); } else { this.setState({ agencies: newState }); }
     } else {
-      this.setState({agencies: currState + "," + selValue});
+      this.setState({ agencies: currState + "," + selValue });
 
     }
-    
+
   }
 
-  handleThemeChange(){
-    this.setState({      
-      darkState : !this.state.darkState
+  handleThemeChange() {
+    this.setState({
+      darkState: !this.state.darkState
     })
   }
 
@@ -187,29 +188,32 @@ class UpcomingLaunches extends React.Component {
       rocketElements.push(<Grid item xs={'auto'}><RocketCard id={i} rocketInfo={this.state.rocketData[i]} /></Grid>);
     }
 
-    if (!this.state.loading){
+    if (!this.state.loading) {
       var agencyList = this.state.nameList.agencies.sort();
       for (let i = 0; i < agencyList.length; i++) {
         checkboxLines.push(
-        <div className="singleCheckbox">
-          <FormControlLabel 
-            control={<Checkbox value={agencyList[i]} onChange={this.checkboxHandler}/>} 
-            label={agencyList[i]}/>
-        </div>
-          );
+          <div className="singleCheckbox">
+            <FormControlLabel
+              control={<Checkbox value={agencyList[i]} onChange={this.checkboxHandler} />}
+              label={agencyList[i]} />
+          </div>
+        );
       }
     }
 
     return (
       <div>
         {
-        this.state.loading ? <CircularProgress /> :
-        <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <div className = "mainPageDiv">
-            <div className = "rocketCardsDiv">
-              <div className={classes.buttonRoot}>
-                    <div className = "pageHeader">
+          this.state.loading ? <CircularProgress /> :
+            <ThemeProvider theme={darkTheme}>
+              <CssBaseline />
+              <div className="mainPageDiv">
+                <div className="rocketCardsDiv">
+                  <div className={classes.buttonRoot}>
+                    <div className="pageHeader">
+                      <IconButton aria-label="home" onClick={(e) => window.location.href = "/"}>
+                        <HomeIcon style={{ fontSize: 30 }} />
+                      </IconButton>
                       <form className={classes.root} noValidate autoComplete="off" onSubmit={(e) => this.handleSubmitRocketName(e)}>
                         <TextField id="outlined-basic" label="Rocket Name" variant="outlined" value={this.state.rocketName} onChange={(e) => this.handleChange(e, "rocketName")} />
                         <TextField id="outlined-basic" label="Mission Name" variant="outlined" value={this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")} />
@@ -219,16 +223,15 @@ class UpcomingLaunches extends React.Component {
                       </form>
                       {
                         this.state.page > 0 ?
-                        <IconButton aria-label="before" onClick={(e) => this.previousPageButton(e)}>
-                          <NavigateBeforeIcon style={{ fontSize: 30 }}/>
-                        </IconButton>
-                        : <div></div>
-                      }
+                          <IconButton aria-label="before" onClick={(e) => this.previousPageButton(e)}>
+                            <NavigateBeforeIcon style={{ fontSize: 30 }} />
+                          </IconButton>
+                          : <div></div>}
                       <IconButton aria-label="next" onClick={(e) => this.nextPageButton(e)}>
-                          <NavigateNextIcon style={{ fontSize: 30 }}/>
+                        <NavigateNextIcon style={{ fontSize: 30 }} />
                       </IconButton>
-                      <IconButton aria-label="brightness" onClick = {this.handleThemeChange}>
-                          <Brightness4Icon style={{ fontSize: 30 }}/>
+                      <IconButton aria-label="brightness" onClick={this.handleThemeChange}>
+                        <Brightness4Icon style={{ fontSize: 30 }} />
                       </IconButton>
                     </div>
                     <Grid container spacing={2}>
@@ -236,12 +239,12 @@ class UpcomingLaunches extends React.Component {
                     </Grid>
                   </div>
                 </div>
-                  <div className = "checkboxDiv">
-                    <h2>upcoming by agency:</h2>
-                    {checkboxLines}
-                  </div>
-           </div>   
-           </ThemeProvider>
+                <div className="checkboxDiv">
+                  <h2>upcoming by agency:</h2>
+                  {checkboxLines}
+                </div>
+              </div>
+            </ThemeProvider>
         }
       </div>
     )
