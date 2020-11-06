@@ -225,23 +225,23 @@ class MainPage extends React.Component {
                           <TextField label="Mission Name" variant="outlined" value={this.state.missionName} onChange={(e) => this.handleChange(e, "missionName")} />
                         </Box>
                         <IconButton aria-label="search" type="Submit">
-                          <SearchIcon style={{ fontSize: 40 }} />
+                          <SearchIcon style={{ fontSize: 35 }} />
                         </IconButton>
                       </form>
                       {
                         this.state.page > 0 ?
                         <IconButton aria-label="before" onClick={(e) => this.previousPageButton(e)}>
-                          <NavigateBeforeIcon style={{ fontSize: 40 }}/>
+                          <NavigateBeforeIcon style={{ fontSize: 35 }}/>
                         </IconButton>
                         : <div></div>
                       }
                       <IconButton aria-label="next" onClick={(e) => this.nextPageButton(e)}>
-                          <NavigateNextIcon style={{ fontSize: 40 }}/>
+                          <NavigateNextIcon style={{ fontSize: 35 }}/>
                       </IconButton>
                       <IconButton aria-label="brightness" onClick = {this.handleThemeChange}>
-                          <Brightness4Icon style={{ fontSize: 40 }}/>
+                          <Brightness4Icon style={{ fontSize: 35 }}/>
                       </IconButton>
-                      <Button className="upcomingLaunchesButton" color="primary" variant="contained" size="small" onClick={(event) => window.location.href = "Upcoming"}>
+                      <Button className="upcomingLaunchesButton" variant="contained" style={{maxWidth: '200px', maxHeight: '52px', backgroundColor : '#801313', color : 'white'}} onClick={(event) => window.location.href = "Upcoming"}>
                         Upcoming Launches
                       </Button>
                     </Box>
