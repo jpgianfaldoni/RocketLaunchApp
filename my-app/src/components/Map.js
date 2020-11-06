@@ -1,6 +1,6 @@
 import React from 'react'
 import {Component} from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import StaticMap, { InteractiveMap, Marker } from 'react-map-gl';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const key = require("../teste/teste")
@@ -15,7 +15,7 @@ class RocketMap extends Component {
         height: 700,
         latitude: 0,
         longitude: 0,
-        zoom: 8,
+        zoom: 2,
         coordinates : ""
       },
       loading: true
@@ -25,13 +25,13 @@ class RocketMap extends Component {
   componentDidMount(){
     this.setState({
       viewport:{
-      width: 1200,
+      width: 900,
       height: 700,
       latitude: this.props.mapUrl.lat,
       longitude: this.props.mapUrl.long,
-      zoom: 8,
+      zoom: 3,
       coordinates : ""
-
+      
     },
     loading: false},
     );
@@ -48,13 +48,17 @@ class RocketMap extends Component {
       <div>
 
       {this.state.loading ? <CircularProgress /> :
-        <ReactMapGL
+        <StaticMap
           mapStyle = 'mapbox://styles/mapbox/outdoors-v11' // style URL"
           {...this.state.viewport}
           onViewportChange={(viewport) => this.setState({viewport})}
-          mapboxApiAccessToken = {key}>
+          mapboxApiAccessToken = {key}
+          dragPan = {false}
+          dragRotate = {false}
+          doubleClickZoom = {false}
+          scrollZoom= {false}>
           <Marker latitude={lat} longitude={long}><img src = "https://i.ibb.co/3Mp8mqp/pin.png" height = "25" width = "17"></img></Marker>
-        </ReactMapGL>
+        </StaticMap>
       }
 
       </div>
