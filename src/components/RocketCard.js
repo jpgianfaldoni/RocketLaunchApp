@@ -76,27 +76,27 @@ class RocketCard extends React.Component {
                 <FacebookShareButton
                   quote={this.props.rocketInfo.missionDescription ? this.props.rocketInfo.missionDescription : this.props.rocketInfo.missionDescription}
                   hashtag="#Rockets"
-                  url={window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                  url={window.location.href + 'Rocket/' + this.props.rocketInfo.id}>
                   <FacebookIcon size={"2.5rem"} round={true} borderRadius={"9px"} />
                 </FacebookShareButton>
                 <TwitterShareButton
                   title={this.props.rocketInfo.name}
-                  url={window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                  url={window.location.href + 'Rocket/' + this.props.rocketInfo.id}>
                   <TwitterIcon size={"2.5rem"} round={true} borderRadius={"9px"} />
                 </TwitterShareButton>
                 <RedditShareButton
                   title={this.props.rocketInfo.name}
-                  url={window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                  url={window.location.href + 'Rocket/' + this.props.rocketInfo.id}>
                   <RedditIcon size={"2.5rem"} round={true} borderRadius={"9px"} />
                 </RedditShareButton>
                 <WhatsappShareButton
                   title={this.props.rocketInfo.name}
-                  url={window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                  url={window.location.href + 'Rocket/' + this.props.rocketInfo.id}>
                   <WhatsappIcon size={"2.5rem"} round={true} borderRadius={"9px"} />
                 </WhatsappShareButton>
                 <EmailShareButton
                   subject={this.props.rocketInfo.name}
-                  url={window.location.href + '/Rocket/' + this.props.rocketInfo.id}>
+                  url={window.location.href + 'Rocket/' + this.props.rocketInfo.id}>
                   <EmailIcon size={"2.5rem"} round={true} borderRadius={"9px"} />
                 </EmailShareButton>
                 <div class="learnMoreButton">
