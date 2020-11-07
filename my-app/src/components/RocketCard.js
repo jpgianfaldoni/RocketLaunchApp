@@ -17,6 +17,12 @@ const useStyles = theme => ({
   }
 });
 
+const YellowTextTypography = withStyles({
+  root: {
+    color: "#d8b20a"
+  }
+})(Typography);
+
 
 class RocketCard extends React.Component {
   constructor() {
@@ -54,9 +60,9 @@ class RocketCard extends React.Component {
               onClick={(event) => window.location.href = '/Rocket/' + this.props.rocketInfo.id}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <YellowTextTypography color = "#e4cb58" gutterBottom variant="h5" component="h2">
                 {this.props.rocketInfo.name}
-              </Typography>
+              </YellowTextTypography>
               <Typography gutterBottom component="h6">
                 Set to Launch: {new Date(this.props.rocketInfo.launchTime).toLocaleDateString()}
               </Typography>

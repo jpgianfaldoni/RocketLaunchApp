@@ -1,3 +1,4 @@
+
 /* .rockettest{
     display: block;
     width: 500px;
@@ -31,20 +32,19 @@
 
 .rocketCardsDiv{
     display: flex;
-    margin-right: 2%;
-    margin-left: 0;
+    margin-left: 1rem;
 }
 
 .checkboxDiv{
     display: flex;
     flex-flow: column nowrap;
-    margin-top: 5rem;
+    margin-top: 4rem;
 }
 
 .singleCheckbox{
     width: 19rem;
-    margin-left: 2rem;
 }
+
  .Map{
      width: 100%;
      position: absolute;

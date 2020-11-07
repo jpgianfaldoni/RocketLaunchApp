@@ -79,7 +79,6 @@ class Rocket extends React.Component {
   }
 
   clockRenderer({days, hours, minutes, seconds, completed}) {
-    console.log({days, hours, minutes, seconds})
     return(
       <Box>
         {days != 0 ? 
@@ -102,8 +101,6 @@ class Rocket extends React.Component {
     
     var date = new Date(this.state.rocketData.launchTime);
     var isFuture = date > new Date(); 
-    console.log(this.state.rocketData)
-    console.log(this.state.rocketData.missionDescription);
     return (
       <div>
       <ThemeProvider theme={darkTheme}>

@@ -200,7 +200,6 @@ class MainPage extends React.Component {
         checkboxLines.push(
         <div className="singleCheckbox">
           <FormControlLabel 
-            color = "primary"
             control={<Checkbox value={agencyList[i]} onChange={this.checkboxHandler}/>} 
             label={agencyList[i]}/>
         </div>
@@ -242,7 +241,7 @@ class MainPage extends React.Component {
                       <IconButton aria-label="brightness" onClick = {this.handleThemeChange}>
                           <Brightness4Icon style={{ fontSize: 35 }}/>
                       </IconButton>
-                      <Button className="upcomingLaunchesButton" variant="contained" style={{maxWidth: '200px', maxHeight: '52px', backgroundColor : '#801313', color : 'white'}} onClick={(event) => window.location.href = "Upcoming"}>
+                      <Button className="upcomingLaunchesButton" variant="contained" style={{maxWidth: '200px', maxHeight: '52px', backgroundColor : '#801313', color : 'white', marginLeft : '27rem'}} onClick={(event) => window.location.href = "Upcoming"}>
                         Upcoming Launches
                       </Button>
                     </Box>
