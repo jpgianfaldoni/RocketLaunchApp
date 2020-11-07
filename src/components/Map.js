@@ -6,7 +6,7 @@ import ReactMapGL from 'react-map-gl';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const key = require("../teste/teste")
+const key = require("../teste/teste") || process.env.MAPKEY;
 
 class RocketMap extends Component {
 
