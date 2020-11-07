@@ -102,6 +102,7 @@ class MainPage extends React.Component {
 
   nextPageButton(event) {
     event.preventDefault()
+    this.setState({ loading: true })
     fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page + 1) + "&rocketName=" + this.state.rocketName +
       "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
       .then(response => response.json())
@@ -116,6 +117,7 @@ class MainPage extends React.Component {
 
   previousPageButton(event) {
     event.preventDefault()
+    this.setState({ loading: true })
     fetch("https://space-launch-db.herokuapp.com/filter?page=" + (this.state.page - 1) + "&rocketName=" + this.state.rocketName +
       "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
       .then(response => response.json())
