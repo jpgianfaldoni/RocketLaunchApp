@@ -9,6 +9,10 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Box from '@material-ui/core/Box';
 import HomeIcon from '@material-ui/icons/Home';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { withStyles } from "@material-ui/core/styles";
+
 
 
 
@@ -16,6 +20,12 @@ import HomeIcon from '@material-ui/icons/Home';
 import RocketMap from "./Map"
 import { Typography } from '@material-ui/core';
 
+
+const YellowTextTypography = withStyles({
+  root: {
+    color: "#d8b20a"
+  }
+})(Typography);
 
 class Rocket extends React.Component {
   constructor() {
@@ -29,6 +39,7 @@ class Rocket extends React.Component {
     this.mapUrlParser = this.mapUrlParser.bind(this);
     this.handleThemeChange = this.handleThemeChange.bind(this);
     this.clockRenderer = this.clockRenderer.bind(this);
+    this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -42,6 +53,15 @@ class Rocket extends React.Component {
         })
       })
   }
+  handleChange(event, state) {
+    const { value } = event.target
+    this.setState({
+      [state]: value,
+    })
+  }
+
+
+  
 
   mapUrlParser(mapUrl) {
     // Examples
@@ -83,8 +103,8 @@ class Rocket extends React.Component {
     return(
       <Box>
         {days != 0 ? 
-        <Typography variant = "h4"> Launch in: {days} days, {hours} hours, {minutes} minutes and {seconds} seconds</Typography>
-        : <Typography variant = "h4">Launch in: {hours} hours, {minutes} minutes and {seconds} seconds</Typography>
+        <Typography variant = "h3"> Launch in: {days} days, {hours} hours, {minutes} minutes and {seconds} seconds</Typography>
+        : <Typography variant = "h3">Launch in: {hours} hours, {minutes} minutes and {seconds} seconds</Typography>
         }
       </Box> 
     )
@@ -118,28 +138,34 @@ class Rocket extends React.Component {
             <h1>{this.state.rocketData.name}</h1>
         </Box>
         <Box id = "Brown" display = "flex" flexDirection = "row" >
-          <Box id = "Blue" display = "flex" flexDirection = "column" marginRight = "5vw">
+          <Box id = "Blue" display = "flex" flexDirection = "column" marginRight = "6vw">
             <Box id = "Orange">
-              <img src={this.state.rocketData.imageurl} width="450" height="500"></img>
+              <img src={this.state.rocketData.imageurl} width="500" height="600"></img>
             </Box>
+          </Box>
+          <Box id = "Green" maxHeight = '100%' maxHeight = '100%' marginRight = "6vw" >
+            {this.mapUrlParser(this.state.rocketData.mapurl) ? <RocketMap mapUrl={this.mapUrlParser(this.state.rocketData.mapurl)} /> : <p>Sorry, no map was available for this launch...</p>}  
+          </Box>
+          <Box id = "Calendar" maxHeight = '10vw' maxWidth = '20vw'>
+            <Calendar
+              value={date}
+            />
             <Box id = "Purple" display = "flex" flexDirection = "column" maxWidth = "450px">
-              <h4>Mission led by: {this.state.rocketData.agencyName}</h4>
-              <h4>{isFuture ? "This mission will launch on " + date.toLocaleDateString() : "This mission has launched on " + date.toLocaleDateString()}</h4>
+              <h3>Mission led by: {this.state.rocketData.agencyName}</h3>
+              <h3>{isFuture ? "This mission will launch on " + date.toLocaleDateString() : "This mission has launched on " + date.toLocaleDateString()}</h3>
 
               {this.state.rocketData.missionDescription != null ? <p>{this.state.rocketData.missionDescription}</p> : <p>Sorry, this mission's description is unavailable...</p>}
 
     
-              <h4>{this.state.rocketData.padName ? "Launch Location: " + this.state.rocketData.padName : <div></div>}</h4>
+              <Typography>{this.state.rocketData.padName ? "Launch Location: " + this.state.rocketData.padName : <div></div>}</Typography>
             </Box>
           </Box>
-          <Box id = "Green" maxHeight = '100%' maxHeight = '100%' >
-            {this.mapUrlParser(this.state.rocketData.mapurl) ? <RocketMap mapUrl={this.mapUrlParser(this.state.rocketData.mapurl)} /> : <p>Sorry, no map was available for this launch...</p>}  
-          </Box>
         </Box>
-        <Box id = "Pink" textAlign = "center">
+        <Box id = "Pink" textAlign = "center" marginTop = "4vw">
           {isFuture ? <Countdown date={date} renderer={this.clockRenderer} />: <div></div>}
         </Box>
       </Box>      
+
       }
     
       </ThemeProvider>
