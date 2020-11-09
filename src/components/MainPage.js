@@ -81,6 +81,7 @@ class MainPage extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.checkboxHandler = this.checkboxHandler.bind(this)
     this.handleThemeChange = this.handleThemeChange.bind(this)
+    this.handleChangeCheckBox = this.handleChangeCheckBox.bind(this)
     
   }
 
@@ -149,6 +150,22 @@ class MainPage extends React.Component {
     const { value } = event.target
     this.setState({
       [state]: value,
+    })
+  }
+
+  handleChangeCheckBox(event, state) {
+    const { value } = event.target
+    this.setState({
+      [state]: value,
+    })
+    fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+    "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({
+        loading: false,
+        rocketData: data,
+      })
     })
   }
 
