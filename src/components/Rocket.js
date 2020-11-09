@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from "react-router";
-import Countdown, { zeroPad, calcTimeDelta, formatTimeDelta } from 'react-countdown';
+import Countdown from 'react-countdown';
 import '../style.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';

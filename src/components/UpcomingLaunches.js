@@ -17,7 +17,6 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import HomeIcon from '@material-ui/icons/Home';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 
 
@@ -153,7 +152,7 @@ class UpcomingLaunches extends React.Component {
     var selValue = event.target.value;
     var currState = this.state.agencies;
     var currStateList = currState.split(",");
-    if (currState.length == 0) {
+    if (currState.length === 0) {
       this.setState({ agencies: selValue });
     } else if (currStateList.includes(selValue)) {
       var index = currStateList.indexOf(selValue);

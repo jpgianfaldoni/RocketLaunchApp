@@ -81,6 +81,7 @@ class MainPage extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.checkboxHandler = this.checkboxHandler.bind(this)
     this.handleThemeChange = this.handleThemeChange.bind(this)
+    this.fetchData = this.fetchData.bind(this)
     
   }
 
@@ -154,26 +155,73 @@ class MainPage extends React.Component {
 
 
 
-  checkboxHandler(event) {
+  checkboxHandler(event, state) {
     var selValue = event.target.value;
     var currState = this.state.agencies;
     var currStateList = currState.split(",");
     if(currState.length == 0){
-      this.setState({agencies: selValue});
+      this.setState({
+        [state]: selValue,
+      }, () => {fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+      "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          loading: false,
+          rocketData: data,
+        })
+        console.log('1', this.state.agencies)
+      })});
     } else if(currStateList.includes(selValue)) {
       var index = currStateList.indexOf(selValue);
       currStateList.splice(index, 1);
       var newState = currStateList[0];
       for (let i = 1; i<currStateList.length; i++){
         newState += "," + currStateList[i];
+
       }
-      if (!newState) {this.setState({agencies: ""});} else {this.setState({agencies: newState});}
+      if (!newState) {this.setState({[state]: ""}, () => {fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+      "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          loading: false,
+          rocketData: data,
+        })
+      })});} 
+      else {this.setState({[state]: newState}, () => {fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+      "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          loading: false,
+          rocketData: data,
+        })
+      })});}
     } else {
-      this.setState({agencies: currState + "," + selValue});
+      this.setState({[state]: currState + "," + selValue},() => {fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+      "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          loading: false,
+          rocketData: data,
+        })
+        console.log('3' , this.state.agencies)
+      })});
 
     }
+  }
+
+  handleThemeChange(){
+    this.setState({      
+      darkState : !this.state.darkState
+    })
+  }
+
+  fetchData(currAgency){
     fetch("https://space-launch-db.herokuapp.com/filter?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
-    "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+    "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + currAgency)
     .then(response => response.json())
     .then(data => {
       this.setState({
@@ -181,13 +229,7 @@ class MainPage extends React.Component {
         rocketData: data,
       })
     })
-    
-  }
-
-  handleThemeChange(){
-    this.setState({      
-      darkState : !this.state.darkState
-    })
+    console.log(this.state.agencies)
   }
 
 
@@ -213,7 +255,7 @@ class MainPage extends React.Component {
         checkboxLines.push(
         <div className="singleCheckbox">
           <FormControlLabel 
-            control={<Checkbox value={agencyList[i]} onChange={this.checkboxHandler}/>} 
+            control={<Checkbox value={agencyList[i]} onChange={(e) => this.checkboxHandler(e, "agencies")}/>} 
             label={agencyList[i]}/>
         </div>
           );

@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { FacebookShareButton, RedditShareButton, TwitterShareButton, WhatsappShareButton, EmailShareButton, FacebookIcon, RedditIcon, EmailIcon, TwitterIcon, WhatsappIcon } from 'react-share';
 import '../style.css';
-import { Box } from '@material-ui/core';
 
 const useStyles = theme => ({
   cardRoot: {
@@ -35,7 +34,6 @@ class RocketCard extends React.Component {
   }
 
   componentDidMount() {
-    const id = this.props.id;
     this.setState({
       loading: false,
     })
@@ -47,7 +45,6 @@ class RocketCard extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const id = this.props.id
     return (
       this.state.loading ? <h1>Loading</h1> :
           <Card className={classes.cardRoot}> 
@@ -61,13 +58,13 @@ class RocketCard extends React.Component {
                   onClick={(event) => window.location.href = '/Rocket/' + this.props.rocketInfo.id}
                 />
                 <CardContent>
-                  <YellowTextTypography color = "#e4cb58" gutterBottom variant="h5" component="h2">
+                  <YellowTextTypography  gutterBottom variant="h5" component="h2">
                     {this.props.rocketInfo.name}
                   </YellowTextTypography>
                   <Typography gutterBottom component="h6">
                     Set to Launch: {new Date(this.props.rocketInfo.launchTime).toLocaleDateString()}
                   </Typography>
-                  <Typography class="cardDescription" variant="body2" color="textSecondary" component="p">
+                  <Typography className="cardDescription" variant="body2" color="textSecondary" component="p">
                     {this.props.rocketInfo.missionDescription}
                   </Typography>
                 </CardContent>
@@ -99,7 +96,7 @@ class RocketCard extends React.Component {
                   url={window.location.href + 'Rocket/' + this.props.rocketInfo.id}>
                   <EmailIcon size={"2.5rem"} round={true} borderRadius={"9px"} />
                 </EmailShareButton>
-                <div class="learnMoreButton">
+                <div className="learnMoreButton">
                   <Button variant="outlined" size="small" onClick={(event) => window.location.href = '/Rocket/' + this.props.rocketInfo.id}>
                     Learn More
                     </Button>

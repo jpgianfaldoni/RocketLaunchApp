@@ -1,6 +1,6 @@
 import React from 'react'
 import {Component} from 'react';
-import StaticMap, { InteractiveMap, Marker } from 'react-map-gl';
+import { Marker } from 'react-map-gl';
 import ReactMapGL from 'react-map-gl';
 
 
