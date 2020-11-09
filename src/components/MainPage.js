@@ -18,6 +18,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -262,7 +263,7 @@ class MainPage extends React.Component {
     return (
       <div>
         {
-        this.state.loading ? <CircularProgress /> :
+        this.state.loading ? <Box className="loading"><CircularProgress /></Box> :
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
           <div className = "mainPageDiv">
@@ -297,9 +298,12 @@ class MainPage extends React.Component {
                         Upcoming Launches
                       </Button>
                     </Box>
-                    <Grid container spacing={2}>
-                      {rocketElements}
-                    </Grid>
+                    {
+                      this.state.rocketData.length === 0 ? <Box><Typography>Sorry, we could not fund any launches for the parameters you provided, please try again.</Typography></Box>:
+                      <Grid container spacing={2}>
+                        {rocketElements}
+                      </Grid>
+                    }
                   </div>
                 </div>
                   <div className = "checkboxDiv">

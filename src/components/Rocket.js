@@ -47,6 +47,7 @@ class Rocket extends React.Component {
     // Examples
     // http://maps.google.com/maps?q=28.627+N,+80.621+W
     // https://www.google.ee/maps/search/57.435833,152.337778
+    console.log(mapUrl)
     if(!mapUrl){
       return false
     }
@@ -59,7 +60,7 @@ class Rocket extends React.Component {
       numbers[0].includes("S") ? lat = -lat : lat = lat
       numbers[1].includes("W") ? long = -long : long = long
       return { lat: lat, long: long };
-    } else if (!mapUrl.includes("place")) {
+    } else if (!mapUrl.includes("place") && !mapUrl.includes(";")) {
       var split1 = mapUrl.split("=");
       var coords = split1[1].split(",")
       // console.log(coords)

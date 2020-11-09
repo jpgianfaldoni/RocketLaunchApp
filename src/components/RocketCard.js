@@ -6,8 +6,10 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { FacebookShareButton, RedditShareButton, TwitterShareButton, WhatsappShareButton, EmailShareButton, FacebookIcon, RedditIcon, EmailIcon, TwitterIcon, WhatsappIcon } from 'react-share';
+import ExploreIcon from '@material-ui/icons/Explore';
 import '../style.css';
 
 const useStyles = theme => ({
@@ -37,6 +39,37 @@ class RocketCard extends React.Component {
     this.setState({
       loading: false,
     })
+  }
+
+
+  mapUrlParser(mapUrl) {
+    // Examples
+    // http://maps.google.com/maps?q=28.627+N,+80.621+W
+    // https://www.google.ee/maps/search/57.435833,152.337778
+    // console.log(mapUrl)
+    if(!mapUrl || !mapUrl.includes("google")){
+      return false
+    }
+    else if (mapUrl.includes("search")) {
+      var split = mapUrl.split("/")
+      var lastIndex = split.length - 1;
+      var numbers = split[lastIndex].split(",")
+      var lat = parseFloat(numbers[0].replace(/[+|N|S]/gi, ""))
+      var long = parseFloat(numbers[1].replace(/[+|W|E]/gi, ""))
+      numbers[0].includes("S") ? lat = -lat : lat = lat
+      numbers[1].includes("W") ? long = -long : long = long
+      return { lat: lat, long: long };
+    } else if (!mapUrl.includes("place") && !mapUrl.includes(";")) {
+      var split1 = mapUrl.split("=");
+      var coords = split1[1].split(",")
+      // console.log(coords)
+      var lat = parseFloat(coords[0].replace(/[+|N|S]/gi, ""))
+      var long = parseFloat(coords[1].replace(/[+|W|E]/gi, ""))
+      coords[0].includes("S") ? lat = -lat : lat = lat
+      coords[1].includes("W") ? long = -long : long = long
+      return { lat: lat, long: long };
+    }
+    return false;
   }
 
 
@@ -96,6 +129,12 @@ class RocketCard extends React.Component {
                   url={window.location.href + 'Rocket/' + this.props.rocketInfo.id}>
                   <EmailIcon size={"2.5rem"} round={true} borderRadius={"9px"} />
                 </EmailShareButton>
+                { this.mapUrlParser(this.props.rocketInfo.mapurl) ?
+                <IconButton onClick={(event)=>window.open(this.props.rocketInfo.mapurl, '_blank')}  color="secondary" aria-label="upload picture" component="span">
+                  <ExploreIcon fontSize="large"/>
+                </IconButton>
+                : <div></div>
+                }
                 <div className="learnMoreButton">
                   <Button variant="outlined" size="small" onClick={(event) => window.location.href = '/Rocket/' + this.props.rocketInfo.id}>
                     Learn More

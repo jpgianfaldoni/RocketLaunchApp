@@ -18,6 +18,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import HomeIcon from '@material-ui/icons/Home';
 import Box from '@material-ui/core/Box';
+import Typography from 'material-ui/styles/typography';
 
 
 
@@ -82,6 +83,8 @@ class UpcomingLaunches extends React.Component {
     this.handleThemeChange = this.handleThemeChange.bind(this)
 
   }
+
+  
 
 
   componentDidMount() {
@@ -243,7 +246,7 @@ class UpcomingLaunches extends React.Component {
     return (
       <div>
         {
-          this.state.loading ? <CircularProgress /> :
+          this.state.loading ? <Box className="loading"><CircularProgress /></Box> :
             <ThemeProvider theme={darkTheme}>
               <CssBaseline />
               <Box display="flex">
@@ -278,9 +281,12 @@ class UpcomingLaunches extends React.Component {
                         <Brightness4Icon style={{ fontSize: 40 }}/>
                     </IconButton>
                   </Box>
+                  {
+                    this.state.rocketData.length === 0 ? <Box><Typography>Sorry, we could not fund any launches for the parameters you provided, please try again.</Typography></Box>:
                     <Grid container spacing={2}>
                       {rocketElements}
                     </Grid>
+                  }
                   </div>
                 </div>
                 <div className="checkboxDiv">
