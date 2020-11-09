@@ -170,7 +170,6 @@ class MainPage extends React.Component {
           loading: false,
           rocketData: data,
         })
-        console.log('1', this.state.agencies)
       })});
     } else if(currStateList.includes(selValue)) {
       var index = currStateList.indexOf(selValue);
@@ -207,7 +206,6 @@ class MainPage extends React.Component {
           loading: false,
           rocketData: data,
         })
-        console.log('3' , this.state.agencies)
       })});
 
     }
@@ -229,7 +227,6 @@ class MainPage extends React.Component {
         rocketData: data,
       })
     })
-    console.log(this.state.agencies)
   }
 
 

@@ -148,25 +148,60 @@ class UpcomingLaunches extends React.Component {
     })
   }
 
-  checkboxHandler(event) {
+  checkboxHandler(event, state) {
     var selValue = event.target.value;
     var currState = this.state.agencies;
     var currStateList = currState.split(",");
-    if (currState.length === 0) {
-      this.setState({ agencies: selValue });
-    } else if (currStateList.includes(selValue)) {
+    if(currState.length == 0){
+      this.setState({
+        [state]: selValue,
+      }, () => {fetch("https://space-launch-db.herokuapp.com/upcoming?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+      "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          loading: false,
+          rocketData: data,
+        })
+      })});
+    } else if(currStateList.includes(selValue)) {
       var index = currStateList.indexOf(selValue);
       currStateList.splice(index, 1);
       var newState = currStateList[0];
-      for (let i = 1; i < currStateList.length; i++) {
+      for (let i = 1; i<currStateList.length; i++){
         newState += "," + currStateList[i];
+
       }
-      if (!newState) { this.setState({ agencies: "" }); } else { this.setState({ agencies: newState }); }
+      if (!newState) {this.setState({[state]: ""}, () => {fetch("https://space-launch-db.herokuapp.com/upcoming?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+      "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          loading: false,
+          rocketData: data,
+        })
+      })});} 
+      else {this.setState({[state]: newState}, () => {fetch("https://space-launch-db.herokuapp.com/upcoming?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+      "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          loading: false,
+          rocketData: data,
+        })
+      })});}
     } else {
-      this.setState({ agencies: currState + "," + selValue });
+      this.setState({[state]: currState + "," + selValue},() => {fetch("https://space-launch-db.herokuapp.com/upcoming?page=" + this.state.page + "&rocketName=" + this.state.rocketName +
+      "&rocketStatus=" + this.state.rocketStatus + "&missionName=" + this.state.missionName + "&agencies=" + this.state.agencies)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          loading: false,
+          rocketData: data,
+        })
+      })});
 
     }
-
   }
 
   handleThemeChange() {
@@ -198,7 +233,7 @@ class UpcomingLaunches extends React.Component {
         checkboxLines.push(
           <div className="singleCheckbox">
             <FormControlLabel
-              control={<Checkbox value={agencyList[i]} onChange={this.checkboxHandler} />}
+              control={<Checkbox value={agencyList[i]} onChange={(e) => this.checkboxHandler(e, "agencies")} />}
               label={agencyList[i]} />
           </div>
         );
