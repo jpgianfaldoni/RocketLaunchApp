@@ -299,7 +299,7 @@ class MainPage extends React.Component {
                       </Button>
                     </Box>
                     {
-                      this.state.rocketData.length === 0 ? <Box><Typography>Sorry, we could not fund any launches for the parameters you provided, please try again.</Typography></Box>:
+                      this.state.rocketData.length === 0 ? <Box><Typography>Sorry, we could not find any launches for the parameters you provided, please try again.</Typography></Box>:
                       <Grid container spacing={2}>
                         {rocketElements}
                       </Grid>
